@@ -31,14 +31,15 @@ import {
   Loader2,
   Sparkles
 } from 'lucide-react'
+import Button from '../components/Button'
 
 const MOOD_TYPES = [
-  { emoji: '😁', label: 'Happy', value: 10, color: 'text-yellow-400' },
-  { emoji: '🙂', label: 'Calm', value: 8, color: 'text-emerald-400' },
-  { emoji: '😐', label: 'Neutral', value: 6, color: 'text-blue-400' },
-  { emoji: '😟', label: 'Stressed', value: 4, color: 'text-orange-400' },
-  { emoji: '😢', label: 'Sad', value: 3, color: 'text-indigo-400' },
-  { emoji: '😴', label: 'Exhausted', value: 2, color: 'text-red-400' },
+  { emoji: '😁', label: 'Happy', value: 10, color: 'text-[#ba8d1a]' },
+  { emoji: '🙂', label: 'Calm', value: 8, color: 'text-primary' },
+  { emoji: '😐', label: 'Neutral', value: 6, color: 'text-secondary' },
+  { emoji: '😟', label: 'Stressed', value: 4, color: 'text-[#ba5a1a]' },
+  { emoji: '😢', label: 'Sad', value: 3, color: 'text-[#444655]' },
+  { emoji: '😴', label: 'Exhausted', value: 2, color: 'text-error' },
 ]
 
 export default function Dashboard() {
@@ -195,43 +196,42 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8">
+    <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-on-background">
       
       {/* Top Greeting Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-gray-900/20 border border-white/5 p-6 md:p-8 rounded-3xl backdrop-blur-xl relative overflow-hidden shadow-xl">
-        <div className="absolute top-0 right-0 w-48 h-48 bg-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-white brutalist-border brutalist-shadow p-6 md:p-8 rounded-3xl relative overflow-hidden">
         <div>
-          <div className="flex items-center gap-2 text-xs text-purple-400 font-medium mb-1.5">
+          <div className="flex items-center gap-2 text-xs text-primary font-headline font-bold mb-1.5">
             <Calendar className="h-3.5 w-3.5" />
             <span>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-            Welcome, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">{profile?.full_name || 'Student'}</span> 👋
+          <h1 className="text-2xl md:text-3xl font-headline font-extrabold text-on-background tracking-tight">
+            Welcome, <span className="bg-primary-container brutalist-border px-2 inline-block -rotate-1 text-primary">{profile?.full_name || 'Student'}</span> 👋
           </h1>
-          <p className="text-gray-400 text-xs mt-1 max-w-md font-light leading-relaxed">
+          <p className="text-secondary text-xs mt-2 max-w-md font-medium leading-relaxed">
             Keep study pressure in check. Spend 5 minutes tracking your thoughts to secure your cognitive focus.
           </p>
         </div>
 
         {/* Streak & Target stats */}
         <div className="flex gap-4 w-full md:w-auto">
-          <div className="flex-1 md:flex-initial flex items-center gap-3 bg-gray-900/40 border border-white/5 px-5 py-3.5 rounded-2xl shadow-inner min-w-[130px]">
-            <div className="p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 shrink-0">
+          <div className="flex-1 md:flex-initial flex items-center gap-3 bg-white brutalist-border brutalist-shadow-sm px-5 py-3.5 rounded-2xl min-w-[130px]">
+            <div className="p-2 rounded-xl bg-tertiary-container brutalist-border text-tertiary shrink-0">
               <Flame className="h-5 w-5 animate-pulse" />
             </div>
             <div>
-              <div className="text-[10px] text-gray-500 font-light">Study Streak</div>
-              <div className="text-base font-bold text-white leading-tight">{streak} {streak === 1 ? 'day' : 'days'}</div>
+              <div className="text-[10px] text-secondary font-headline font-bold">Study Streak</div>
+              <div className="text-base font-headline font-extrabold text-on-background leading-tight">{streak} {streak === 1 ? 'day' : 'days'}</div>
             </div>
           </div>
 
-          <div className="flex-1 md:flex-initial flex items-center gap-3 bg-gray-900/40 border border-white/5 px-5 py-3.5 rounded-2xl shadow-inner min-w-[130px]">
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0">
+          <div className="flex-1 md:flex-initial flex items-center gap-3 bg-white brutalist-border brutalist-shadow-sm px-5 py-3.5 rounded-2xl min-w-[130px]">
+            <div className="p-2 rounded-xl bg-primary-container brutalist-border text-primary shrink-0">
               <BookOpenCheck className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-[10px] text-gray-500 font-light">Target Exam</div>
-              <div className="text-base font-bold text-white leading-tight">{profile?.exam || 'None'}</div>
+              <div className="text-[10px] text-secondary font-headline font-bold">Target Exam</div>
+              <div className="text-base font-headline font-extrabold text-on-background leading-tight">{profile?.exam || 'None'}</div>
             </div>
           </div>
         </div>
@@ -242,16 +242,15 @@ export default function Dashboard() {
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-card p-5 rounded-3xl border border-purple-500/10 bg-gradient-to-r from-purple-950/10 to-emerald-950/5 relative overflow-hidden shadow-md"
+          className="bg-secondary-container text-on-secondary-container p-5 rounded-3xl brutalist-border brutalist-shadow relative overflow-hidden"
         >
-          <div className="absolute -top-10 -right-10 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl"></div>
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
+            <div className="p-2 rounded-xl bg-white brutalist-border text-secondary shrink-0">
               <Sparkles className="h-4.5 w-4.5 animate-float" />
             </div>
             <div>
-              <div className="text-[9px] text-purple-400 font-bold tracking-wider uppercase font-sans">Daily Mindset Boost</div>
-              <p className="text-xs text-gray-300 font-light italic mt-0.5 leading-relaxed">
+              <div className="text-[10px] text-on-secondary-container font-headline font-extrabold tracking-wider uppercase">Daily Mindset Boost</div>
+              <p className="text-sm text-on-secondary-container font-medium italic mt-0.5 leading-relaxed">
                 "{motivationText}"
               </p>
             </div>
@@ -260,55 +259,55 @@ export default function Dashboard() {
       )}
 
       {/* Quick Actions Shortcuts */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <button
           onClick={() => navigate('/journal')}
-          className="flex items-center justify-between p-4 rounded-2xl bg-purple-950/10 hover:bg-purple-950/20 border border-purple-500/20 hover:border-purple-500/40 text-left transition-all duration-300 shadow-md group cursor-pointer"
+          className="flex items-center justify-between p-4 rounded-2xl bg-primary-container brutalist-border brutalist-shadow brutalist-button hover:bg-[#91dec0] text-left transition-all group cursor-pointer"
         >
           <div className="space-y-1">
-            <h4 className="font-semibold text-white text-sm">New Journal</h4>
-            <p className="text-[10px] text-gray-400 font-light">Log study thoughts</p>
+            <h4 className="font-headline font-bold text-on-primary-container text-sm">New Journal</h4>
+            <p className="text-[10px] text-on-primary-container font-medium opacity-80">Log study thoughts</p>
           </div>
-          <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 group-hover:rotate-12 transition-transform duration-300 text-purple-400">
+          <div className="p-2 rounded-xl bg-white brutalist-border group-hover:rotate-12 transition-transform duration-300 text-primary">
             <Plus className="h-4 w-4" />
           </div>
         </button>
 
         <button
           onClick={() => setIsMoodModalOpen(true)}
-          className="flex items-center justify-between p-4 rounded-2xl bg-emerald-950/10 hover:bg-emerald-950/20 border border-emerald-500/20 hover:border-emerald-500/40 text-left transition-all duration-300 shadow-md group cursor-pointer"
+          className="flex items-center justify-between p-4 rounded-2xl bg-secondary-container brutalist-border brutalist-shadow brutalist-button hover:bg-[#ced0eb] text-left transition-all group cursor-pointer"
         >
           <div className="space-y-1">
-            <h4 className="font-semibold text-white text-sm">Mood Check-in</h4>
-            <p className="text-[10px] text-gray-400 font-light">How are you feeling?</p>
+            <h4 className="font-headline font-bold text-on-secondary-container text-sm">Mood Check-in</h4>
+            <p className="text-[10px] text-on-secondary-container font-medium opacity-80">How are you feeling?</p>
           </div>
-          <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 group-hover:scale-110 transition-transform duration-300 text-emerald-400">
+          <div className="p-2 rounded-xl bg-white brutalist-border group-hover:scale-110 transition-transform duration-300 text-secondary">
             <Smile className="h-4 w-4" />
           </div>
         </button>
 
         <button
           onClick={() => navigate('/history')}
-          className="flex items-center justify-between p-4 rounded-2xl bg-gray-900/30 hover:bg-gray-900/50 border border-white/5 hover:border-white/10 text-left transition-all duration-300 shadow-md group cursor-pointer"
+          className="flex items-center justify-between p-4 rounded-2xl bg-tertiary-container brutalist-border brutalist-shadow brutalist-button hover:bg-[#f6cdab] text-left transition-all group cursor-pointer"
         >
           <div className="space-y-1">
-            <h4 className="font-semibold text-white text-sm">Previous Entries</h4>
-            <p className="text-[10px] text-gray-400 font-light">Browse log archive</p>
+            <h4 className="font-headline font-bold text-on-tertiary-container text-sm">Previous Entries</h4>
+            <p className="text-[10px] text-on-tertiary-container font-medium opacity-80">Browse log archive</p>
           </div>
-          <div className="p-2 rounded-xl bg-gray-900/40 border border-white/10 text-gray-400">
+          <div className="p-2 rounded-xl bg-white brutalist-border text-tertiary">
             <History className="h-4 w-4" />
           </div>
         </button>
 
         <button
           onClick={() => navigate('/profile')}
-          className="flex items-center justify-between p-4 rounded-2xl bg-gray-900/30 hover:bg-gray-900/50 border border-white/5 hover:border-white/10 text-left transition-all duration-300 shadow-md group cursor-pointer"
+          className="flex items-center justify-between p-4 rounded-2xl bg-white brutalist-border brutalist-shadow brutalist-button hover:bg-surface-container text-left transition-all group cursor-pointer"
         >
           <div className="space-y-1">
-            <h4 className="font-semibold text-white text-sm">Profile Details</h4>
-            <p className="text-[10px] text-gray-400 font-light">Edit preferences</p>
+            <h4 className="font-headline font-bold text-on-background text-sm">Profile Details</h4>
+            <p className="text-[10px] text-secondary font-medium">Edit preferences</p>
           </div>
-          <div className="p-2 rounded-xl bg-gray-900/40 border border-white/10 text-gray-400">
+          <div className="p-2 rounded-xl bg-surface-container-low brutalist-border text-on-background">
             <User className="h-4 w-4" />
           </div>
         </button>
@@ -321,26 +320,25 @@ export default function Dashboard() {
         <div className="lg:col-span-2 space-y-6">
           
           {/* Today's Mood Status Card with AI Analysis */}
-          <div className="glass-card p-6 rounded-2xl border border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[160px]">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/5 rounded-full blur-xl pointer-events-none"></div>
+          <div className="bg-white brutalist-border brutalist-shadow p-6 rounded-2xl relative overflow-hidden flex flex-col justify-between min-h-[160px]">
             
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold text-white text-sm flex items-center gap-2">
-                <Smile className="h-4 w-4 text-purple-400" />
+              <h3 className="font-headline font-bold text-on-background text-sm flex items-center gap-2">
+                <Smile className="h-4 w-4 text-primary" />
                 <span>Today's Mood Status</span>
               </h3>
-              <span className="text-[9px] bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded-full text-purple-300 font-medium">Daily</span>
+              <span className="text-[9px] bg-primary-container brutalist-border px-2 py-0.5 rounded-full text-on-primary-container font-headline font-bold">Daily</span>
             </div>
 
             {todayLog ? (
               <div className="space-y-4">
-                <div className="flex items-center gap-4 bg-gray-950/40 border border-white/5 p-4 rounded-xl">
+                <div className="flex items-center gap-4 bg-surface-container-low brutalist-border p-4 rounded-xl">
                   <span className="text-4xl">{
                     MOOD_TYPES.find(m => m.label === todayLog.mood)?.emoji || '😐'
                   }</span>
                   <div>
-                    <h4 className="font-bold text-white text-base">{todayLog.mood}</h4>
-                    <div className="text-[10px] text-gray-500 font-light mt-0.5">
+                    <h4 className="font-headline font-bold text-on-background text-base">{todayLog.mood}</h4>
+                    <div className="text-[10px] text-secondary font-medium mt-0.5">
                       Logged at {new Date(todayLog.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
                   </div>
@@ -351,14 +349,14 @@ export default function Dashboard() {
                   <motion.div 
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
-                    className="grid grid-cols-2 gap-3 bg-gray-950/50 p-4 rounded-xl border border-white/5 text-xs space-y-0.5"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-surface-container-low p-4 rounded-xl brutalist-border text-xs"
                   >
-                    <div className="space-y-1 col-span-2 sm:col-span-1">
-                      <div className="text-gray-500 text-[10px] uppercase font-sans tracking-wide">Stress Level</div>
-                      <div className="font-semibold text-white flex items-center gap-2">
-                        <div className="w-24 bg-gray-800 h-1.5 rounded-full overflow-hidden shrink-0">
+                    <div className="space-y-1">
+                      <div className="text-secondary text-[10px] font-headline font-bold uppercase tracking-wide">Stress Level</div>
+                      <div className="font-bold text-on-background flex items-center gap-2">
+                        <div className="w-24 bg-white h-2.5 brutalist-border rounded-full overflow-hidden shrink-0">
                           <div 
-                            className="bg-purple-500 h-full transition-all duration-500" 
+                            className="bg-primary h-full transition-all duration-500" 
                             style={{ width: `${todayAnalysis.stress_level}%` }}
                           ></div>
                         </div>
@@ -367,23 +365,23 @@ export default function Dashboard() {
                     </div>
                     
                     <div className="space-y-1">
-                      <div className="text-gray-500 text-[10px] uppercase font-sans tracking-wide">Burnout Risk</div>
-                      <div className={`font-bold ${
-                        todayAnalysis.burnout_risk === 'High' ? 'text-red-400 animate-pulse' :
-                        todayAnalysis.burnout_risk === 'Moderate' ? 'text-orange-400' : 'text-emerald-400'
+                      <div className="text-secondary text-[10px] font-headline font-bold uppercase tracking-wide">Burnout Risk</div>
+                      <div className={`font-headline font-bold ${
+                        todayAnalysis.burnout_risk === 'High' ? 'text-error animate-pulse' :
+                        todayAnalysis.burnout_risk === 'Moderate' ? 'text-[#ba5a1a]' : 'text-primary'
                       }`}>
                         {todayAnalysis.burnout_risk} Risk
                       </div>
                     </div>
                     
                     <div className="space-y-1">
-                      <div className="text-gray-500 text-[10px] uppercase font-sans tracking-wide">Confidence Index</div>
-                      <div className="font-semibold text-white font-mono">{todayAnalysis.confidence}%</div>
+                      <div className="text-secondary text-[10px] font-headline font-bold uppercase tracking-wide">Confidence Index</div>
+                      <div className="font-bold text-on-background font-mono">{todayAnalysis.confidence}%</div>
                     </div>
 
                     <div className="space-y-1">
-                      <div className="text-gray-500 text-[10px] uppercase font-sans tracking-wide">Primary Triggers</div>
-                      <div className="font-medium text-purple-300 truncate" title={todayAnalysis.triggers?.join(', ')}>
+                      <div className="text-secondary text-[10px] font-headline font-bold uppercase tracking-wide">Primary Triggers</div>
+                      <div className="font-bold text-primary truncate" title={todayAnalysis.triggers?.join(', ')}>
                         {todayAnalysis.triggers && todayAnalysis.triggers.length > 0 
                           ? todayAnalysis.triggers.join(', ') 
                           : 'None identified'}
@@ -391,7 +389,7 @@ export default function Dashboard() {
                     </div>
                   </motion.div>
                 ) : (
-                  <div className="flex items-center gap-2 text-xs text-purple-400 bg-purple-500/5 p-3.5 rounded-xl border border-purple-500/10 animate-pulse font-light">
+                  <div className="flex items-center gap-2 text-xs text-primary bg-primary-container p-3.5 rounded-xl brutalist-border font-medium">
                     <Loader2 className="h-4 w-4 animate-spin" />
                     <span>Gemini AI is analyzing your thoughts...</span>
                   </div>
@@ -399,27 +397,28 @@ export default function Dashboard() {
               </div>
             ) : (
               <div className="text-center py-4 space-y-4">
-                <p className="text-gray-400 text-xs font-light leading-relaxed">
+                <p className="text-secondary text-xs font-medium leading-relaxed">
                   You haven't logged your mental wellness mood today yet. A check-in takes only 5 seconds.
                 </p>
-                <button
+                <Button
                   onClick={() => setIsMoodModalOpen(true)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-purple-600 to-emerald-500 hover:from-purple-500 hover:to-emerald-400 transition-all duration-300 shadow-md cursor-pointer"
+                  variant="primary"
+                  className="text-xs"
                 >
                   Log Today's Mood
-                </button>
+                </Button>
               </div>
             )}
           </div>
 
           {/* Weekly Mood Chart */}
-          <div className="glass-card p-6 rounded-2xl border border-white/5">
+          <div className="bg-white brutalist-border brutalist-shadow p-6 rounded-2xl">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="font-semibold text-white text-sm flex items-center gap-2">
-                <Activity className="h-4 w-4 text-emerald-400" />
+              <h3 className="font-headline font-bold text-on-background text-sm flex items-center gap-2">
+                <Activity className="h-4 w-4 text-primary" />
                 <span>Weekly Wellness Progress</span>
               </h3>
-              <span className="text-[10px] text-gray-500 font-light">Mood Intensity Curve</span>
+              <span className="text-[10px] text-secondary font-headline font-bold">Mood Intensity Curve</span>
             </div>
             
             <div className="h-56 w-full">
@@ -427,35 +426,37 @@ export default function Dashboard() {
                 <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                   <defs>
                     <linearGradient id="colorIntensity" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#a855f7" stopOpacity={0.25}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#246a52" stopOpacity={0.4}/>
+                      <stop offset="95%" stopColor="#aaf0d1" stopOpacity={0.1}/>
                     </linearGradient>
                   </defs>
                   <XAxis 
                     dataKey="day" 
-                    stroke="rgba(255,255,255,0.2)" 
-                    tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 10 }}
+                    stroke="#1b1b1b" 
+                    tick={{ fill: '#1b1b1b', fontSize: 10, fontWeight: 'bold' }}
                   />
                   <YAxis 
                     domain={[0, 10]} 
                     tickCount={6}
-                    stroke="rgba(255,255,255,0.2)" 
-                    tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 10 }}
+                    stroke="#1b1b1b" 
+                    tick={{ fill: '#1b1b1b', fontSize: 10, fontWeight: 'bold' }}
                   />
                   <Tooltip 
                     contentStyle={{ 
-                      background: 'rgba(15, 23, 42, 0.95)', 
-                      borderColor: 'rgba(255, 255, 255, 0.08)',
-                      borderRadius: '12px',
+                      background: '#ffffff', 
+                      borderColor: '#1b1b1b',
+                      borderWidth: '2px',
+                      borderRadius: '8px',
                       fontSize: '11px',
-                      color: '#f3f4f6'
+                      color: '#1b1b1b',
+                      fontWeight: 'bold'
                     }}
                   />
                   <Area 
                     type="monotone" 
                     dataKey="intensity" 
-                    stroke="#a855f7" 
-                    strokeWidth={2}
+                    stroke="#246a52" 
+                    strokeWidth={3}
                     fillOpacity={1} 
                     fill="url(#colorIntensity)" 
                   />
@@ -469,70 +470,71 @@ export default function Dashboard() {
         <div className="space-y-6">
           
           {/* Journal Preview Card */}
-          <div className="glass-card p-6 rounded-2xl border border-white/5 flex flex-col justify-between min-h-[200px]">
+          <div className="bg-white brutalist-border brutalist-shadow p-6 rounded-2xl flex flex-col justify-between min-h-[200px]">
             <div>
               <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold text-white text-sm flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 text-purple-400" />
+                <h3 className="font-headline font-bold text-on-background text-sm flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 text-primary" />
                   <span>Latest Journal Entry</span>
                 </h3>
-                <span className="text-[9px] bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded-full text-purple-300 font-medium">Logs</span>
+                <span className="text-[9px] bg-primary-container brutalist-border px-2 py-0.5 rounded-full text-on-primary-container font-headline font-bold">Logs</span>
               </div>
 
               {logs.length > 0 ? (
                 <div className="space-y-3">
-                  <p className="text-gray-300 text-xs font-light leading-relaxed line-clamp-4">
+                  <p className="text-secondary text-xs font-medium leading-relaxed line-clamp-4">
                     {logs[0].journal}
                   </p>
-                  <div className="text-[10px] text-gray-500 flex justify-between items-center font-mono">
+                  <div className="text-[10px] text-secondary flex justify-between items-center font-mono font-bold">
                     <span>{logs[0].journal.length} chars</span>
                     <span>{new Date(logs[0].created_at).toLocaleDateString([], { month: 'short', day: 'numeric' })}</span>
                   </div>
                 </div>
               ) : (
                 <div className="text-center py-6 space-y-4">
-                  <div className="p-3 rounded-full bg-purple-500/5 border border-purple-500/10 w-fit mx-auto">
-                    <AlertCircle className="h-6 w-6 text-purple-400/50" />
+                  <div className="p-3 rounded-full bg-surface-container-low brutalist-border w-fit mx-auto text-secondary">
+                    <AlertCircle className="h-6 w-6" />
                   </div>
-                  <p className="text-gray-400 text-xs font-light leading-relaxed">
+                  <p className="text-secondary text-xs font-medium leading-relaxed">
                     No journals recorded. Writing down thoughts helps discharge academic anxieties.
                   </p>
-                  <button
+                  <Button
                     onClick={() => navigate('/journal')}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold text-white border border-white/10 hover:bg-white/5 transition-all duration-300 cursor-pointer"
+                    variant="outline"
+                    className="text-xs w-full"
                   >
                     Write First Entry
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
           </div>
 
           {/* AI Recommendations Checklist Card */}
-          <div className="glass-card p-6 rounded-2xl border border-white/5 space-y-4">
+          <div className="bg-tertiary-container text-on-tertiary-container brutalist-border brutalist-shadow p-6 rounded-2xl space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-white text-sm flex items-center gap-2">
-                <Zap className="h-4 w-4 text-emerald-400 animate-pulse" />
+              <h3 className="font-headline font-bold text-on-tertiary-container text-sm flex items-center gap-2">
+                <Zap className="h-4 w-4 text-tertiary animate-pulse" />
                 <span>AI Coping Recommendations</span>
               </h3>
-              <span className="text-[9px] bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full text-emerald-300 font-medium">Empathetic AI</span>
+              <span className="text-[9px] bg-white brutalist-border px-2 py-0.5 rounded-full text-on-tertiary-container font-headline font-bold">Empathetic AI</span>
             </div>
 
-            <div className="space-y-3 max-h-[220px] overflow-y-auto">
+            <div className="space-y-3 max-h-[220px] overflow-y-auto pr-1">
               {todayAnalysis && todayAnalysis.recommendations && todayAnalysis.recommendations.length > 0 ? (
                 todayAnalysis.recommendations.map((rec, idx) => (
                   <label 
                     key={idx} 
-                    className="flex items-start gap-2.5 text-xs text-gray-300 cursor-pointer select-none font-light group"
+                    className="flex items-start gap-2.5 text-xs font-medium cursor-pointer select-none text-on-tertiary-container leading-relaxed"
                   >
                     <input 
                       type="checkbox" 
-                      className="mt-0.5 accent-purple-500 rounded border-white/10" 
+                      className="mt-0.5 accent-primary brutalist-border bg-white rounded cursor-pointer" 
                       onChange={(e) => {
                         if (e.target.checked) toast.success(`Task completed: "${rec}"`)
                       }}
                     />
-                    <span className="group-hover:text-white transition-colors leading-relaxed">{rec}</span>
+                    <span>{rec}</span>
                   </label>
                 ))
               ) : (
@@ -540,13 +542,13 @@ export default function Dashboard() {
                   {/* Fallback mock insights if today is not logged */}
                   {insightsLoading ? (
                     <div className="space-y-2 py-2">
-                      <div className="h-3 w-full bg-white/5 animate-pulse rounded"></div>
-                      <div className="h-3 w-[80%] bg-white/5 animate-pulse rounded"></div>
+                      <div className="h-3 w-full bg-white/40 animate-pulse rounded"></div>
+                      <div className="h-3 w-[80%] bg-white/40 animate-pulse rounded"></div>
                     </div>
                   ) : (
                     aiInsights.map((insight, idx) => (
-                      <div key={idx} className="flex gap-2.5 text-xs text-gray-300 leading-relaxed font-light">
-                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0 mt-1.5"></div>
+                      <div key={idx} className="flex gap-2.5 text-xs text-on-tertiary-container font-medium leading-relaxed">
+                        <div className="h-2 w-2 rounded-full bg-tertiary shrink-0 mt-1.5"></div>
                         <p>{insight}</p>
                       </div>
                     ))
@@ -569,7 +571,7 @@ export default function Dashboard() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMoodModalOpen(false)}
-              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/40"
             />
 
             <motion.div
@@ -577,16 +579,16 @@ export default function Dashboard() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 15 }}
               transition={{ type: 'spring', duration: 0.4 }}
-              className="w-full max-w-lg bg-gray-900 border border-white/10 p-6 md:p-8 rounded-3xl shadow-2xl relative z-10 space-y-6"
+              className="w-full max-w-lg bg-white border-4 border-on-background p-6 md:p-8 rounded-3xl shadow-[8px_8px_0px_0px_#1b1b1b] relative z-10 space-y-6"
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-xl font-bold text-white">Mood Check-in</h3>
-                  <p className="text-gray-400 text-xs font-light mt-1">How are you feeling study-wise today?</p>
+                  <h3 className="text-xl font-headline font-extrabold text-on-background">Mood Check-in</h3>
+                  <p className="text-secondary text-xs font-medium mt-1">How are you feeling study-wise today?</p>
                 </div>
                 <button
                   onClick={() => setIsMoodModalOpen(false)}
-                  className="p-1.5 rounded-lg border border-white/10 text-gray-500 hover:text-white"
+                  className="p-1 rounded-lg brutalist-border bg-white text-on-background hover:bg-surface-container"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -600,26 +602,26 @@ export default function Dashboard() {
                       key={mood.label}
                       type="button"
                       onClick={() => setSelectedMood(mood)}
-                      className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 transition-all text-center cursor-pointer ${
+                      className={`p-3 rounded-xl brutalist-border flex flex-col items-center gap-1.5 transition-all text-center cursor-pointer ${
                         isSelected 
-                          ? 'bg-purple-950/20 border-purple-500/80 shadow-md' 
-                          : 'bg-gray-950/30 border-white/5 hover:border-white/10 hover:bg-gray-950/60'
+                          ? 'bg-primary-container brutalist-shadow-sm translate-x-[1px] translate-y-[1px] shadow-none font-bold' 
+                          : 'bg-white hover:bg-surface-container-low text-on-background'
                       }`}
                     >
                       <span className="text-2xl">{mood.emoji}</span>
-                      <span className={`text-[10px] font-semibold ${mood.color}`}>{mood.label}</span>
+                      <span className={`text-[10px] font-headline font-bold ${mood.color}`}>{mood.label}</span>
                     </button>
                   )
                 })}
               </div>
 
               <div className="space-y-2">
-                <div className="flex justify-between items-center text-xs font-semibold text-gray-400">
+                <div className="flex justify-between items-center text-xs font-headline font-bold text-secondary">
                   <span className="flex items-center gap-1">
-                    <Activity className="h-3.5 w-3.5 text-purple-400" />
+                    <Activity className="h-3.5 w-3.5 text-primary" />
                     <span>Mood Intensity</span>
                   </span>
-                  <span className="text-white font-mono">{moodIntensity}/10</span>
+                  <span className="text-on-background font-mono">{moodIntensity}/10</span>
                 </div>
                 <input
                   type="range"
@@ -627,17 +629,17 @@ export default function Dashboard() {
                   max="10"
                   value={moodIntensity}
                   onChange={(e) => setMoodIntensity(parseInt(e.target.value))}
-                  className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                  className="w-full h-3 bg-white brutalist-border rounded-lg appearance-none cursor-pointer accent-primary"
                 />
-                <div className="flex justify-between text-[10px] text-gray-500 font-light font-mono">
+                <div className="flex justify-between text-[10px] text-secondary font-mono font-bold">
                   <span>1 - Mild</span>
                   <span>10 - Extreme</span>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-gray-400 flex items-center gap-1.5">
-                  <HelpCircle className="h-3.5 w-3.5 text-purple-400" />
+                <label className="text-xs font-headline font-bold text-secondary flex items-center gap-1.5">
+                  <HelpCircle className="h-3.5 w-3.5 text-primary" />
                   <span>Any specific reasons? (Optional)</span>
                 </label>
                 <textarea
@@ -645,30 +647,27 @@ export default function Dashboard() {
                   value={quickNotes}
                   onChange={(e) => setQuickNotes(e.target.value)}
                   placeholder="E.g., completed mock test, feeling behind on syllabus, tired..."
-                  className="w-full p-3 rounded-xl glass-input text-xs resize-none"
+                  className="w-full p-3 rounded-xl brutalist-border bg-white text-on-background focus:outline-none focus:bg-surface-container-low text-xs resize-none placeholder-gray-500"
                 />
               </div>
 
               <div className="pt-2 flex gap-3">
-                <button
-                  type="button"
+                <Button
                   onClick={() => setIsMoodModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-xl border border-white/10 text-gray-400 hover:text-white text-xs font-medium cursor-pointer text-center"
+                  variant="outline"
+                  className="flex-1 text-xs"
                 >
                   Cancel
-                </button>
-                <button
-                  type="button"
+                </Button>
+                <Button
                   onClick={handleMoodSubmit}
                   disabled={submittingMood || !selectedMood}
-                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-emerald-500 hover:from-purple-500 hover:to-emerald-400 text-white font-semibold text-xs transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center gap-1.5 active:scale-98 disabled:opacity-50"
+                  variant="primary"
+                  className="flex-1 text-xs"
+                  loading={submittingMood}
                 >
-                  {submittingMood ? (
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                  ) : (
-                    <span>Save Check-in</span>
-                  )}
-                </button>
+                  Save Check-in
+                </Button>
               </div>
 
             </motion.div>

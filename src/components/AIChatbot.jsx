@@ -89,14 +89,13 @@ export default function AIChatbot() {
   return (
     <div className="fixed bottom-6 right-6 z-50 select-none">
       
-      {/* 1. Floating Pulse Trigger Button */}
+      {/* 1. Circular Neo-Brutalist Trigger Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.08 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="w-14 h-14 rounded-full bg-gradient-to-tr from-purple-600 to-emerald-500 shadow-xl flex items-center justify-center text-white cursor-pointer relative group focus:outline-none"
+        className="w-14 h-14 rounded-full bg-primary-container brutalist-border brutalist-shadow brutalist-button flex items-center justify-center text-primary cursor-pointer relative group focus:outline-none"
       >
-        <span className="absolute inset-0 rounded-full bg-purple-500/20 animate-ping group-hover:animate-none -z-10"></span>
         <AnimatePresence mode="wait">
           {isOpen ? (
             <motion.div
@@ -106,7 +105,7 @@ export default function AIChatbot() {
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <X className="h-6 w-6" />
+              <X className="h-6 w-6 text-on-primary-container" />
             </motion.div>
           ) : (
             <motion.div
@@ -117,8 +116,8 @@ export default function AIChatbot() {
               transition={{ duration: 0.2 }}
               className="flex items-center justify-center relative"
             >
-              <BrainCircuit className="h-6 w-6 text-white" />
-              <Sparkles className="h-3 w-3 text-emerald-300 absolute -top-1.5 -right-1.5 animate-bounce" />
+              <BrainCircuit className="h-6 w-6 text-primary" />
+              <Sparkles className="h-3.5 w-3.5 text-primary absolute -top-1.5 -right-1.5 animate-bounce" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -132,24 +131,24 @@ export default function AIChatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.92 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="absolute bottom-16 right-0 w-[350px] sm:w-[400px] h-[520px] rounded-3xl border border-white/10 bg-gray-950/95 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col justify-between"
+            className="absolute bottom-18 right-0 w-[350px] sm:w-[400px] h-[520px] rounded-3xl border-4 border-on-background bg-white shadow-[8px_8px_0px_0px_#1b1b1b] overflow-hidden flex flex-col justify-between"
           >
             {/* Header */}
-            <div className="p-4 border-b border-white/5 bg-gray-900/30 flex items-center justify-between">
+            <div className="p-4 border-b-2 border-on-background bg-secondary-container flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-purple-600/10 border border-purple-500/30">
-                  <BrainCircuit className="h-4.5 w-4.5 text-purple-400" />
+                <div className="p-1.5 rounded-lg bg-white brutalist-border">
+                  <BrainCircuit className="h-4.5 w-4.5 text-primary" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white leading-none">MindMate Companion</h4>
-                  <span className="text-[9px] text-emerald-400 font-medium">Empathetic AI Online</span>
+                  <h4 className="text-xs font-headline font-bold text-on-background leading-none">MindMate Companion</h4>
+                  <span className="text-[9px] text-primary font-bold">Empathetic AI Companion</span>
                 </div>
               </div>
               
               {/* New session launcher */}
               <button 
                 onClick={handleNewSession}
-                className="p-1.5 rounded-lg border border-white/5 text-gray-500 hover:text-white hover:bg-white/5 transition-all text-xs cursor-pointer flex items-center gap-1 font-sans"
+                className="px-2.5 py-1 rounded-lg brutalist-border brutalist-shadow-sm bg-white text-on-background hover:bg-surface-container-high transition-all text-xs font-headline font-bold cursor-pointer flex items-center gap-1 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
                 title="Restart chat history"
               >
                 <RefreshCw className="h-3 w-3" />
@@ -158,11 +157,11 @@ export default function AIChatbot() {
             </div>
 
             {/* Conversation Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 font-sans text-xs max-h-[400px]">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 font-sans text-xs bg-surface-container-low max-h-[400px]">
               {messages.length === 0 && !companionTyping && (
                 <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-3">
-                  <MessageSquare className="h-10 w-10 text-purple-400/40" />
-                  <p className="text-gray-400 text-xs font-light leading-relaxed">
+                  <MessageSquare className="h-10 w-10 text-[#626374]" />
+                  <p className="text-on-background text-xs font-medium leading-relaxed">
                     Hello, I'm your wellness companion. Preparing for {profile?.exam || 'exams'} takes work. Tell me how you're feeling today, or ask me for study-break routines!
                   </p>
                 </div>
@@ -177,10 +176,10 @@ export default function AIChatbot() {
                     className={`flex ${isUser ? 'justify-end' : 'justify-start'} w-full`}
                   >
                     <div
-                      className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 leading-relaxed font-light ${
+                      className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 leading-relaxed brutalist-border brutalist-shadow-sm ${
                         isUser
-                          ? 'bg-gradient-to-tr from-purple-600 to-purple-800 text-white rounded-tr-none'
-                          : 'bg-gray-900 border border-white/5 text-gray-200 rounded-tl-none'
+                          ? 'bg-primary-container text-on-primary-container rounded-tr-none'
+                          : 'bg-white text-on-background rounded-tl-none'
                       }`}
                     >
                       {msg.content}
@@ -192,10 +191,10 @@ export default function AIChatbot() {
               {/* Gemini Loading Typing indicator */}
               {companionTyping && (
                 <div className="flex justify-start w-full">
-                  <div className="bg-gray-900 border border-white/5 text-gray-200 rounded-2xl rounded-tl-none px-3.5 py-3 flex items-center gap-1 min-w-[70px]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '0s' }}></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '0.15s' }}></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '0.3s' }}></span>
+                  <div className="bg-white brutalist-border brutalist-shadow-sm text-on-background rounded-2xl rounded-tl-none px-3.5 py-3 flex items-center gap-1 min-w-[70px]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0s' }}></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0.15s' }}></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0.3s' }}></span>
                   </div>
                 </div>
               )}
@@ -206,7 +205,7 @@ export default function AIChatbot() {
             {/* Input Form */}
             <form 
               onSubmit={handleSend}
-              className="p-3 border-t border-white/5 bg-gray-950 flex gap-2 items-center"
+              className="p-3 border-t-2 border-on-background bg-white flex gap-2 items-center"
             >
               <input
                 type="text"
@@ -214,12 +213,12 @@ export default function AIChatbot() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder={sending ? 'Thinking...' : 'Overwhelmed? Chat with companion...'}
                 disabled={sending || companionTyping}
-                className="flex-1 p-2.5 rounded-xl text-xs glass-input focus:outline-none placeholder-gray-600 focus:border-purple-500/50"
+                className="flex-1 p-2.5 rounded-xl text-xs brutalist-border bg-white text-on-background focus:outline-none placeholder-gray-500"
               />
               <button
                 type="submit"
                 disabled={sending || companionTyping || !inputText.trim()}
-                className="p-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white cursor-pointer transition-colors shrink-0 disabled:opacity-30 disabled:pointer-events-none"
+                className="p-2.5 rounded-xl bg-primary text-white brutalist-border brutalist-shadow-sm brutalist-button hover:bg-[#1a4f3e] cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
               >
                 <Send className="h-3.5 w-3.5" />
               </button>

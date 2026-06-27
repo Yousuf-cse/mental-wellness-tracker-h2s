@@ -14,14 +14,16 @@ import {
   Trash2,
   Sliders
 } from 'lucide-react'
+import Button from '../components/Button'
+import Card from '../components/Card'
 
 const MOOD_TYPES = [
-  { emoji: '😁', label: 'Happy', color: 'text-yellow-400' },
-  { emoji: '🙂', label: 'Calm', color: 'text-emerald-400' },
-  { emoji: '😐', label: 'Neutral', color: 'text-blue-400' },
-  { emoji: '😟', label: 'Stressed', color: 'text-orange-400' },
-  { emoji: '😢', label: 'Sad', color: 'text-indigo-400' },
-  { emoji: '😴', label: 'Exhausted', color: 'text-red-400' },
+  { emoji: '😁', label: 'Happy', color: 'text-[#ba8d1a]' },
+  { emoji: '🙂', label: 'Calm', color: 'text-primary' },
+  { emoji: '😐', label: 'Neutral', color: 'text-secondary' },
+  { emoji: '😟', label: 'Stressed', color: 'text-[#ba5a1a]' },
+  { emoji: '😢', label: 'Sad', color: 'text-[#444655]' },
+  { emoji: '😴', label: 'Exhausted', color: 'text-error' },
 ]
 
 // Zod validation schema
@@ -108,30 +110,30 @@ export default function Journal() {
   }
 
   return (
-    <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-8">
+    <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-8 text-on-background font-sans">
       
       {/* Title */}
-      <div className="flex justify-between items-center border-b border-white/5 pb-4">
+      <div className="flex justify-between items-center border-b-2 border-on-background pb-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2">
-            <BookOpen className="h-6 w-6 text-purple-400" />
+          <h1 className="text-2xl md:text-3xl font-headline font-extrabold text-on-background flex items-center gap-2">
+            <BookOpen className="h-6 w-6 text-primary" />
             <span>Reflect & Journal</span>
           </h1>
-          <p className="text-gray-400 text-xs mt-1">Empty your mind, log study blockers, and recharge your focus.</p>
+          <p className="text-secondary text-xs mt-1">Empty your mind, log study blockers, and recharge your focus.</p>
         </div>
 
         {/* Autosave status visual indicator */}
-        <div className="flex items-center gap-1.5 text-[10px] text-gray-500 font-mono">
+        <div className="flex items-center gap-1.5 text-[10px] text-secondary font-mono font-bold">
           {autosaveStatus === 'Saving' && (
             <>
-              <Loader2 className="h-3 w-3 animate-spin text-purple-400" />
+              <Loader2 className="h-3 w-3 animate-spin text-primary" />
               <span>Saving draft...</span>
             </>
           )}
           {autosaveStatus === 'Saved' && (
             <>
-              <CheckCircle className="h-3 w-3 text-emerald-400" />
-              <span className="text-emerald-400 font-semibold">Saved locally</span>
+              <CheckCircle className="h-3 w-3 text-primary" />
+              <span className="text-primary">Saved locally</span>
             </>
           )}
           {autosaveStatus === 'Idle' && journalText.length > 0 && (
@@ -143,9 +145,9 @@ export default function Journal() {
       <form onSubmit={handleSubmit} className="space-y-6">
 
         {/* 1. Mood selection */}
-        <div className="glass-card p-6 rounded-2xl border border-white/5 space-y-4">
-          <label className="text-xs text-gray-400 font-semibold flex items-center gap-1.5">
-            <Smile className="h-4 w-4 text-purple-400" />
+        <Card variant="white" className="space-y-4">
+          <label className="text-xs text-secondary font-headline font-bold flex items-center gap-1.5">
+            <Smile className="h-4 w-4 text-primary" />
             <span>Select current mood *</span>
           </label>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
@@ -156,28 +158,28 @@ export default function Journal() {
                   key={type.label}
                   type="button"
                   onClick={() => setMood(type.label)}
-                  className={`p-3 rounded-xl border flex flex-col items-center gap-1 transition-all text-center cursor-pointer ${
+                  className={`p-3 rounded-xl brutalist-border flex flex-col items-center gap-1.5 transition-all text-center cursor-pointer ${
                     isSelected
-                      ? 'bg-purple-950/20 border-purple-500/80 shadow-md'
-                      : 'bg-gray-900/30 border-white/5 hover:border-white/10 hover:bg-gray-900/60'
+                      ? 'bg-primary-container brutalist-shadow-sm translate-x-[1px] translate-y-[1px] shadow-none font-bold'
+                      : 'bg-white hover:bg-surface-container-low text-on-background'
                   }`}
                 >
                   <span className="text-2xl">{type.emoji}</span>
-                  <span className={`text-[9px] font-semibold ${type.color}`}>{type.label}</span>
+                  <span className={`text-[9px] font-headline font-bold ${type.color}`}>{type.label}</span>
                 </button>
               )
             })}
           </div>
-        </div>
+        </Card>
 
         {/* 2. Intensity Slider */}
-        <div className="glass-card p-6 rounded-2xl border border-white/5 space-y-4">
-          <div className="flex justify-between items-center text-xs font-semibold text-gray-400">
+        <Card variant="white" className="space-y-4">
+          <div className="flex justify-between items-center text-xs font-headline font-bold text-secondary">
             <span className="flex items-center gap-1.5">
-              <Sliders className="h-4 w-4 text-purple-400" />
+              <Sliders className="h-4 w-4 text-primary" />
               <span>Rate mood intensity</span>
             </span>
-            <span className="text-white font-mono">{intensity}/10</span>
+            <span className="text-on-background font-mono">{intensity}/10</span>
           </div>
           <input
             type="range"
@@ -185,21 +187,21 @@ export default function Journal() {
             max="10"
             value={intensity}
             onChange={(e) => setIntensity(parseInt(e.target.value))}
-            className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
+            className="w-full h-3 bg-white brutalist-border rounded-lg appearance-none cursor-pointer accent-primary"
           />
-          <div className="flex justify-between text-[10px] text-gray-500 font-mono">
+          <div className="flex justify-between text-[10px] text-secondary font-mono font-bold">
             <span>1 - Mild</span>
             <span>10 - Intense / Extreme</span>
           </div>
-        </div>
+        </Card>
 
         {/* 3. Text Editor */}
-        <div className="glass-card p-6 rounded-2xl border border-white/5 space-y-3">
+        <Card variant="white" className="space-y-3">
           <div className="flex justify-between items-center">
-            <label htmlFor="journal-textarea" className="text-xs text-gray-400 font-semibold">
+            <label htmlFor="journal-textarea" className="text-xs text-secondary font-headline font-bold">
               Write down your thoughts (Max 3000 characters) *
             </label>
-            <span className={`text-[10px] font-mono ${journalText.length > 2800 ? 'text-red-400 font-bold' : 'text-gray-500'}`}>
+            <span className={`text-[10px] font-mono font-bold ${journalText.length > 2800 ? 'text-error' : 'text-secondary'}`}>
               {journalText.length}/3000
             </span>
           </div>
@@ -210,50 +212,48 @@ export default function Journal() {
             value={journalText}
             onChange={handleTextChange}
             placeholder="What's on your mind today? How are study schedules, syllabus preparation, sleep balance, or mock exams going? Dump everything here..."
-            className="w-full p-4 rounded-xl glass-input text-sm resize-none leading-relaxed placeholder-gray-600 focus:outline-none"
+            className="w-full p-4 rounded-xl brutalist-border bg-white text-on-background text-sm resize-none leading-relaxed placeholder-gray-500 focus:outline-none"
           />
-        </div>
+        </Card>
 
         {/* Controls */}
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           {journalText.length > 0 && (
-            <button
+            <Button
               type="button"
               onClick={handleClearDraft}
-              className="px-6 py-3.5 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 text-red-400 text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+              variant="danger-container"
+              className="px-6 py-3.5 text-xs"
             >
               <Trash2 className="h-4 w-4" />
               <span>Discard Draft</span>
-            </button>
+            </Button>
           )}
 
           <div className="flex-1 flex gap-3">
-            <button
+            <Button
               type="button"
               onClick={() => {
                 saveDraft(journalText)
                 toast.success('Draft explicitly saved locally.')
               }}
-              className="flex-1 py-3.5 px-4 rounded-xl border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 text-xs font-semibold transition-colors cursor-pointer text-center flex items-center justify-center gap-1.5"
+              variant="outline"
+              className="flex-1 py-3.5 text-xs"
             >
               <Save className="h-4 w-4" />
               <span>Save Local Draft</span>
-            </button>
+            </Button>
 
-            <button
+            <Button
               type="submit"
               disabled={submitting}
-              className="flex-1 py-3.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-emerald-500 hover:from-purple-500 hover:to-emerald-400 text-white font-semibold text-xs transition-all duration-300 shadow-md hover:shadow-emerald-500/10 cursor-pointer flex items-center justify-center gap-1.5 active:scale-98 disabled:opacity-50"
+              variant="primary"
+              className="flex-1 py-3.5 text-xs"
+              loading={submitting}
             >
-              {submitting ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <>
-                  <Send className="h-4 w-4" />
-                  <span>Submit Entry</span>
-                </>
-              )}
-            </button>
+              <Send className="h-4 w-4" />
+              <span>Submit Entry</span>
+            </Button>
           </div>
         </div>
 

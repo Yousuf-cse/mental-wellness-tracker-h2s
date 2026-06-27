@@ -47,40 +47,40 @@ export default function DashboardLayout() {
   }
 
   const sidebarContent = (
-    <div className="flex flex-col h-full justify-between p-6 text-gray-300">
+    <div className="flex flex-col h-full justify-between p-6 text-on-background">
       <div className="space-y-8">
         {/* Brand Logo */}
         <div className="flex items-center gap-2.5 px-2">
-          <div className="p-2 rounded-xl bg-purple-600/10 border border-purple-500/30 flex items-center justify-center">
-            <BrainCircuit className="h-5 w-5 text-purple-400" />
+          <div className="p-2 rounded-xl bg-primary-container brutalist-border flex items-center justify-center">
+            <BrainCircuit className="h-5 w-5 text-primary" />
           </div>
-          <span className="text-lg font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-emerald-400 font-sans">
+          <span className="text-xl font-headline font-extrabold tracking-tight text-primary">
             MindMate AI
           </span>
         </div>
 
         {/* User Mini Profile */}
-        <div className="flex items-center gap-3 p-3 rounded-2xl bg-gray-900/30 border border-white/5 shadow-inner">
+        <div className="flex items-center gap-3 p-3 bg-white brutalist-border brutalist-shadow-sm rounded-xl">
           {profile?.avatar_url ? (
             <img 
               src={profile.avatar_url} 
               alt={profile.full_name} 
-              className="h-10 w-10 rounded-full object-cover border border-purple-500/20"
+              className="h-10 w-10 rounded-full object-cover brutalist-border shrink-0"
               onError={(e) => { e.target.src = 'https://api.dicebear.com/7.x/bottts/svg' }}
             />
           ) : (
-            <div className="h-10 w-10 rounded-full bg-purple-900/20 border border-purple-500/20 flex items-center justify-center text-purple-400 font-bold">
+            <div className="h-10 w-10 rounded-full bg-primary-fixed brutalist-border flex items-center justify-center text-on-primary-fixed font-bold shrink-0">
               {profile?.full_name?.charAt(0) || 'U'}
             </div>
           )}
           <div className="overflow-hidden">
-            <h4 className="text-xs font-semibold text-white truncate">{profile?.full_name || 'Student'}</h4>
-            <p className="text-[10px] text-gray-500 truncate">{profile?.email}</p>
+            <h4 className="text-xs font-headline font-bold text-on-background truncate">{profile?.full_name || 'Student'}</h4>
+            <p className="text-[10px] text-secondary truncate">{profile?.email}</p>
           </div>
         </div>
 
         {/* Navigation Menu */}
-        <nav className="space-y-1">
+        <nav className="space-y-2">
           {NAVIGATION_ITEMS.map((item) => {
             const Icon = item.icon
             const isActive = location.pathname === item.path
@@ -89,22 +89,15 @@ export default function DashboardLayout() {
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={({ isActive }) => `
-                  relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 group cursor-pointer
+                className={`
+                  relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-headline font-semibold transition-all group cursor-pointer
                   ${isActive 
-                    ? 'text-white bg-purple-950/20 border border-purple-500/30 shadow-md shadow-purple-500/5' 
-                    : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    ? 'text-on-primary-container bg-primary-container brutalist-border brutalist-shadow-sm' 
+                    : 'text-on-background hover:bg-surface-container-high border border-transparent'
                   }
                 `}
               >
-                {isActive && (
-                  <motion.div 
-                    layoutId="sidebar-active-indicator"
-                    className="absolute inset-0 rounded-xl bg-purple-500/5 -z-10"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <Icon className={`h-4 w-4 transition-transform group-hover:scale-110 duration-300 ${isActive ? 'text-purple-400' : 'text-gray-500 group-hover:text-gray-300'}`} />
+                <Icon className={`h-4 w-4 transition-transform group-hover:scale-110 duration-300 ${isActive ? 'text-primary' : 'text-secondary'}`} />
                 <span>{item.label}</span>
               </NavLink>
             )
@@ -116,36 +109,32 @@ export default function DashboardLayout() {
       <button
         onClick={handleLogout}
         disabled={loggingOut}
-        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent transition-all duration-300 group cursor-pointer disabled:opacity-50"
+        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-headline font-semibold text-on-error-container bg-error-container hover:bg-error hover:text-white brutalist-border brutalist-shadow-sm transition-all group cursor-pointer disabled:opacity-50 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
       >
-        <LogOut className="h-4 w-4 transition-transform group-hover:-translate-x-1 duration-300" />
+        <LogOut className="h-4 w-4 transition-transform group-hover:-translate-x-0.5 duration-300" />
         <span>{loggingOut ? 'Logging out...' : 'Logout'}</span>
       </button>
     </div>
   )
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col md:flex-row relative overflow-hidden">
-      {/* Background neon visual ambient glows */}
-      <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full ambient-glow-purple pointer-events-none z-0"></div>
-      <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full ambient-glow-emerald pointer-events-none z-0"></div>
-
+    <div className="min-h-screen bg-background text-on-background flex flex-col md:flex-row relative">
       {/* Desktop Sidebar (Permanent) */}
-      <aside className="hidden md:block w-64 border-r border-white/5 bg-gray-950/40 backdrop-blur-xl shrink-0 z-10">
+      <aside className="hidden md:block w-64 border-r-2 border-on-background bg-surface-container-low shrink-0 z-10">
         {sidebarContent}
       </aside>
 
       {/* Mobile Top Header Navigation */}
-      <header className="md:hidden flex items-center justify-between px-6 h-16 border-b border-white/5 bg-gray-950/60 backdrop-blur-xl z-20 shrink-0">
+      <header className="md:hidden flex items-center justify-between px-6 h-16 border-b-2 border-on-background bg-surface-container-low z-20 shrink-0">
         <div className="flex items-center gap-2">
-          <BrainCircuit className="h-5 w-5 text-purple-400" />
-          <span className="text-sm font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-emerald-400">
+          <BrainCircuit className="h-5 w-5 text-primary" />
+          <span className="text-base font-headline font-extrabold tracking-tight text-primary">
             MindMate AI
           </span>
         </div>
         <button
           onClick={() => setMobileMenuOpen(true)}
-          className="p-1.5 rounded-lg border border-white/10 text-gray-400 hover:text-white"
+          className="p-1.5 rounded-lg brutalist-border bg-white text-on-background hover:bg-surface-container-high"
         >
           <Menu className="h-5 w-5" />
         </button>
@@ -161,7 +150,7 @@ export default function DashboardLayout() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/40 z-40 md:hidden"
             />
             {/* Slide-out Sidebar */}
             <motion.div
@@ -169,12 +158,12 @@ export default function DashboardLayout() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-              className="fixed inset-y-0 left-0 w-64 bg-gray-950 border-r border-white/10 z-50 md:hidden shadow-2xl"
+              className="fixed inset-y-0 left-0 w-64 bg-surface-container-low border-r-2 border-on-background z-50 md:hidden shadow-2xl"
             >
               <div className="absolute top-4 right-4">
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg border border-white/10 text-gray-400 hover:text-white"
+                  className="p-1.5 rounded-lg brutalist-border bg-white text-on-background hover:bg-surface-container-high"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -186,14 +175,14 @@ export default function DashboardLayout() {
       </AnimatePresence>
 
       {/* Page Content Panel */}
-      <main className="flex-1 overflow-y-auto max-h-screen z-10 relative">
+      <main className="flex-1 overflow-y-auto max-h-screen z-10 relative bg-background">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="w-full h-full min-h-screen"
           >
             <Outlet />
