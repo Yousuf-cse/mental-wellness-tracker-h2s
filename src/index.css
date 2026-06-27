@@ -1,1 +1,83 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #030712;
+    color: #f3f4f6;
+    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Ambient neon flows */
+.ambient-glow-purple {
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.ambient-glow-emerald {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+/* Custom Glassmorphism panel styles */
+.glass-card {
+  background: rgba(17, 24, 39, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(17, 24, 39, 0.7);
+  border-color: rgba(147, 51, 234, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(147, 51, 234, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Custom interactive input styling */
+.glass-input {
+  background: rgba(17, 24, 39, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f3f4f6;
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  background: rgba(17, 24, 39, 0.6);
+  border-color: rgba(147, 51, 234, 0.5);
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.2);
+  outline: none;
+}
+
+/* Micro-animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes gradient-text {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient-text {
+  animation: gradient-text 5s ease infinite;
+}

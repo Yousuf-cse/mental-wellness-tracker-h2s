@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.env
+.env.example
+supabase_schema.sql
+pnpm-lock.yaml
+
